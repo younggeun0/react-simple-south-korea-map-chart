@@ -23,7 +23,7 @@ const DefaultTooltip = ({ darkMode, tooltipStyle, children }: any) => {
     );
 };
 
-const SimpleSouthKoreaMapChart = ({
+export const SimpleSouthKoreaMapChart = ({
     darkMode = false,
     data,
     unit = "개",
@@ -87,5 +87,3 @@ const SimpleSouthKoreaMapChart = ({
         </>
     );
 };
-
-export default SimpleSouthKoreaMapChart;

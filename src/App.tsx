@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SimpleSouthKoreaMapChart } from "./components/SimpleSouthKoreaMapChart";
+import { SimpleSouthKoreaMapChart } from "./components";
 
 const data = [
     { locale: "부산광역시", count: 1500 },

@@ -1,0 +1,1 @@
+export { SimpleSouthKoreaMapChart } from "./SimpleSouthKoreaMapChart";;
