@@ -1,0 +1,15 @@
+.svg-map {
+    width: 100%;
+    height: 600px;
+    stroke: #777;
+    stroke-width: 1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.svg-map__location {
+    cursor: pointer;
+}
+.svg-map__location:focus,
+.svg-map__location:hover {
+    outline: 0;
+}
