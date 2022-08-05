@@ -1,4 +1,4 @@
-# react-simple-korea-map-chart
+# react-simple-korea-map-chart 🇰🇷
 
 행정구역별 통계 데이터를 여러 색으로 시각화해주는 간단한 대한민국 지도 리액트 컴포넌트입니다.
 
