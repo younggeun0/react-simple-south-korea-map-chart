@@ -4,7 +4,7 @@
 
 ## 데모
 
-[react-simple-south-korea-map-chart](https://younggeun0.github.io/projects/react-simple-south-korea-map-chart/index.html)
+<img src="https://raw.githubusercontent.com/younggeun0/younggeun0.github.io/cb8cb489e820d67a986b45995146dd1cbf7e7a55/_posts/img/toyProjects/react-simple-south-korea-map-chart/01.png" alt="demo" style="width:400px;"/>
 
 ## 설치
 
