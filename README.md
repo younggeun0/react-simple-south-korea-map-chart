@@ -9,8 +9,7 @@
 ## 사용 예
 
 ```js
-import { useState } from "react";
-import { SimpleSouthKoreaMapChart } from "./components/SimpleSouthKoreaMapChart";
+import { SimpleSouthKoreaMapChart } from "react-simple-south-korea-map-chart";
 
 const data = [
     { locale: "부산광역시", count: 1500 },
@@ -62,6 +61,7 @@ export default App;
 | setColorByCount | Function                 | **필수**                 | 데이터 `count`값에 따라 표시할 색상을 반환하는 콜백    |
 | darkMode        | boolean                  | false                    | 다크모드 여부(값에 따라 Default Tooltip 색상이 변경됨) |
 | customTooltip   | JSX.element              | &lt;DefaultTooltip /&gt; | 커스텀 툴팁 컴포넌트
+| unit   | String              | "개" | 툴팁에 count 뒤에 표시될 단위
 
 ## 커스텀 툴팁 사용하기
 
