@@ -2,9 +2,11 @@
 
 행정구역별 통계 데이터를 여러 색으로 시각화해주는 간단한 대한민국 지도 리액트 컴포넌트입니다.
 
+<img src="https://raw.githubusercontent.com/younggeun0/younggeun0.github.io/cb8cb489e820d67a986b45995146dd1cbf7e7a55/_posts/img/toyProjects/react-simple-south-korea-map-chart/01.png" alt="demo" style="width:400px;"/>
+
 ## 데모
 
-<img src="https://raw.githubusercontent.com/younggeun0/younggeun0.github.io/cb8cb489e820d67a986b45995146dd1cbf7e7a55/_posts/img/toyProjects/react-simple-south-korea-map-chart/01.png" alt="demo" style="width:400px;"/>
+[react-simple-south-korea-map-chart](https://younggeun0.github.io/projects/react-simple-south-korea-map-chart/index.html)
 
 ## 설치
 
