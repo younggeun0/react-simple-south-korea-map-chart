@@ -1,6 +1,7 @@
 {
   "name": "react-simple-south-korea-map-chart",
-  "version": "1.1.0",
+  "version": "1.1.1",
+  "license": "MIT",
   "main": "dist/index.js",
   "private": false,
   "files": [ "dist", "README.md" ],
