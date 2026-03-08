@@ -1,94 +1,117 @@
-import React from "react";
-import PropTypes from "prop-types";
+import type { FocusEvent, KeyboardEvent, MouseEvent, ReactNode } from "react";
 import "./map.css";
 import mapData from "./mapData";
 
-export const SouthKoreaSvgMap = (props: any) => {
-    return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox={mapData.viewBox}
-            className={props.className}
-            role={props.role}
-            aria-label={mapData.label}
-        >
-            {props.childrenBefore}
-            {mapData.locations.map((location, index) => {
-                let count = props.data[location.name];
-                if (!count) {
-                    count = 0;
-                }
-                return (
-                    <path
-                        id={location.id}
-                        name={location.name}
-                        d={location.path}
-                        className={
-                            typeof props.locationClassName === "function"
-                                ? props.locationClassName(location, index)
-                                : props.locationClassName
-                        }
-                        tabIndex={
-                            typeof props.locationTabIndex === "function"
-                                ? props.locationTabIndex(location, index)
-                                : props.locationTabIndex
-                        }
-                        role={props.locationRole}
-                        aria-label={
-                            typeof props.locationAriaLabel === "function"
-                                ? props.locationAriaLabel(location, index)
-                                : location.name
-                        }
-                        aria-checked={
-                            props.isLocationSelected &&
-                            props.isLocationSelected(location, index)
-                        }
-                        onMouseOver={props.onLocationMouseOver}
-                        onMouseOut={props.onLocationMouseOut}
-                        onMouseMove={props.onLocationMouseMove}
-                        onClick={props.onLocationClick}
-                        onKeyDown={props.onLocationKeyDown}
-                        onFocus={props.onLocationFocus}
-                        onBlur={props.onLocationBlur}
-                        key={location.id}
-                        fill={props.setColorByCount(count)}
-                    />
-                );
-            })}
-            {props.childrenAfter}
-        </svg>
-    );
+type MapLocation = {
+  id: string;
+  name: string;
+  path: string;
 };
 
-SouthKoreaSvgMap.propTypes = {
-    className: PropTypes.string,
-    role: PropTypes.string,
-    data: PropTypes.any,
-    setColorByCount: PropTypes.func,
+type LocationValue<T> = T | ((location: MapLocation, index: number) => T);
 
-    // Locations properties
-    locationClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    locationTabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    locationRole: PropTypes.string,
-    locationAriaLabel: PropTypes.func,
-    onLocationMouseOver: PropTypes.func,
-    onLocationMouseOut: PropTypes.func,
-    onLocationMouseMove: PropTypes.func,
-    onLocationClick: PropTypes.func,
-    onLocationKeyDown: PropTypes.func,
-    onLocationFocus: PropTypes.func,
-    onLocationBlur: PropTypes.func,
-    isLocationSelected: PropTypes.func,
-
-    // Slots
-    childrenBefore: PropTypes.node,
-    childrenAfter: PropTypes.node,
+export type SouthKoreaSvgMapProps = {
+  className?: string;
+  role?: string;
+  data: Record<string, number>;
+  setColorByCount: (count: number) => string;
+  locationClassName?: LocationValue<string>;
+  locationTabIndex?: LocationValue<number | string>;
+  locationRole?: string;
+  locationAriaLabel?: (location: MapLocation, index: number) => string;
+  onLocationMouseOver?: (event: MouseEvent<SVGPathElement>) => void;
+  onLocationMouseOut?: (event: MouseEvent<SVGPathElement>) => void;
+  onLocationMouseMove?: (event: MouseEvent<SVGPathElement>) => void;
+  onLocationClick?: (event: MouseEvent<SVGPathElement>) => void;
+  onLocationKeyDown?: (event: KeyboardEvent<SVGPathElement>) => void;
+  onLocationFocus?: (event: FocusEvent<SVGPathElement>) => void;
+  onLocationBlur?: (event: FocusEvent<SVGPathElement>) => void;
+  isLocationSelected?: (location: MapLocation, index: number) => boolean;
+  childrenBefore?: ReactNode;
+  childrenAfter?: ReactNode;
 };
 
-SouthKoreaSvgMap.defaultProps = {
-    className: "svg-map",
-    role: "none", // No role for map
-    locationClassName: "svg-map__location",
-    locationTabIndex: "0",
-    locationRole: "none",
+const resolveClassName = (
+  value: LocationValue<string>,
+  location: MapLocation,
+  index: number
+) => {
+  return typeof value === "function" ? value(location, index) : value;
+};
+
+const resolveTabIndex = (
+  value: LocationValue<number | string>,
+  location: MapLocation,
+  index: number
+) => {
+  const resolved = typeof value === "function" ? value(location, index) : value;
+  return typeof resolved === "string" ? Number.parseInt(resolved, 10) : resolved;
+};
+
+export const SouthKoreaSvgMap = ({
+  className = "svg-map",
+  role = "none",
+  data,
+  setColorByCount,
+  locationClassName = "svg-map__location",
+  locationTabIndex = 0,
+  locationRole = "none",
+  locationAriaLabel,
+  onLocationMouseOver,
+  onLocationMouseOut,
+  onLocationMouseMove,
+  onLocationClick,
+  onLocationKeyDown,
+  onLocationFocus,
+  onLocationBlur,
+  isLocationSelected,
+  childrenBefore,
+  childrenAfter
+}: SouthKoreaSvgMapProps) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox={mapData.viewBox}
+      className={className}
+      role={role}
+      aria-label={mapData.label}
+    >
+      {childrenBefore}
+      {mapData.locations.map((location, index) => {
+        const typedLocation = location as MapLocation;
+        const count = data[typedLocation.name] ?? 0;
+
+        return (
+          <path
+            id={typedLocation.id}
+            name={typedLocation.name}
+            d={typedLocation.path}
+            className={resolveClassName(locationClassName, typedLocation, index)}
+            tabIndex={resolveTabIndex(locationTabIndex, typedLocation, index)}
+            role={locationRole}
+            aria-label={
+              locationAriaLabel
+                ? locationAriaLabel(typedLocation, index)
+                : typedLocation.name
+            }
+            aria-checked={
+              isLocationSelected
+                ? isLocationSelected(typedLocation, index)
+                : undefined
+            }
+            onMouseOver={onLocationMouseOver}
+            onMouseOut={onLocationMouseOut}
+            onMouseMove={onLocationMouseMove}
+            onClick={onLocationClick}
+            onKeyDown={onLocationKeyDown}
+            onFocus={onLocationFocus}
+            onBlur={onLocationBlur}
+            key={typedLocation.id}
+            fill={setColorByCount(count)}
+          />
+        );
+      })}
+      {childrenAfter}
+    </svg>
+  );
 };

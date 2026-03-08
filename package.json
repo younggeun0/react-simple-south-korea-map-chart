@@ -1,50 +1,58 @@
 {
   "name": "react-simple-south-korea-map-chart",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "license": "MIT",
-  "main": "dist/index.js",
   "private": false,
-  "files": [ "dist", "README.md" ],
-  "repository": {
-      "type": "git",
-      "url": "https://github.com/younggeun0/react-simple-south-korea-map-chart"
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./map.css": "./dist/map.css"
   },
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/younggeun0/react-simple-south-korea-map-chart"
   },
   "scripts": {
-    "clean": "rimraf dist",
-    "build": "npm run clean && tsc && cp package.json README.md src/components/map.css ./dist",
-
-    "demo": "react-scripts start",
-    "demo:build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "clean": "rimraf dist coverage",
+    "build": "npm run clean && tsup && node scripts/copy-css.mjs",
+    "typecheck": "tsc --noEmit",
+    "demo": "vite",
+    "demo:build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
   },
   "devDependencies": {
-    "typescript": "^4.7.4"
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^5.0.0",
+    "jsdom": "^26.1.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.0",
+    "vitest": "^3.2.4"
   }
 }

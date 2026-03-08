@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["DOM", "ES2020"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
     "strict": true,
-    "jsx": "react",
-    "declaration": true,
     "esModuleInterop": true,
-    "outDir": "dist",
-    "target": "es6",
-    "module": "es6",
-    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["vite/client", "vitest/globals"]
   },
-  "include": [
-    "src/components"
-  ],
+  "include": ["src", "vite.config.ts", "tsup.config.ts", "vitest.setup.ts"]
 }
